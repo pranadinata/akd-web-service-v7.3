@@ -27,8 +27,7 @@ class DataClaimentController extends Controller
     public function store(Request $request)
     {
         $dataClaiment = new DataClaiment;
-        $dataClaiment->nama_depan = $request->nama_depan;
-        $dataClaiment->nama_belakang = $request->nama_belakang;
+        $dataClaiment->nama_lengkap = $request->nama_lengkap;
         $dataClaiment->alamat = $request->alamat;
         $dataClaiment->save();
 

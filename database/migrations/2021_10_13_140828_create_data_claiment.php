@@ -15,8 +15,7 @@ class CreateDataClaiment extends Migration
     {
         Schema::create('data_claiment', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_depan');
-            $table->string('nama_belakang');
+            $table->string('nama_lengkap');
             $table->text('alamat');
             $table->timestamps();
         });

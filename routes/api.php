@@ -11,3 +11,6 @@ Route::post('/user/store', 'Api\DataUserController@store');
 Route::get('/data-claiment', 'Api\DataClaimentController@index');
 Route::post('/data-claiment/store', 'Api\DataClaimentController@store');
 
+//data sppa 
+Route::post('/data-sppa/store', 'Api\DataSPPAController@store');
+
