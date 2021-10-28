@@ -16,7 +16,12 @@ class DataClaimentController extends Controller
     public function index()
     {
         $dataClaiment = DataClaiment::all();
-        return response()->json($dataClaiment); 
+        $response = [
+            'code' => $this->SuccessStatus,
+            'message' => 'Success',
+            'data' => $dataClaiment,
+        ];
+        return response()->json($response); 
     }
 
     public function create()
@@ -36,7 +41,7 @@ class DataClaimentController extends Controller
             'message' => 'Success',
             'data' => $dataClaiment,
         ];
-          
+
         return response()->json($response, $response['code']); 
     }
 

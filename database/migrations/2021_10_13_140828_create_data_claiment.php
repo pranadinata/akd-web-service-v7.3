@@ -6,26 +6,18 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateDataClaiment extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('data_claiment', function (Blueprint $table) {
             $table->id();
+            $table->integer('id_user');
             $table->string('nama_lengkap');
             $table->text('alamat');
+            $table->string('no_tlp');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('data_claiment');
