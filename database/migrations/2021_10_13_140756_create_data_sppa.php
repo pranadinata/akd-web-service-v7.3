@@ -16,6 +16,7 @@ class CreateDataSppa extends Migration
             $table->string('peserta_2');
             $table->string('foto_ktp_peserta');
             $table->string('foto_tanda_tangan');
+            $table->integer('jumlah_premi');
             $table->timestamps();
         });
     }

@@ -15,9 +15,17 @@ class DataSPPAController extends Controller
 {
     protected $SuccessStatus = 200;
 
-    public function index()
+    public function index(Request $request)
     {
-        //
+        // dd($request);
+        $dataSPPA = DataSPPA::where('id_user', $request->id_user)->get();
+        // dd($dataClaiment);
+        $response = [
+            'code' => $this->SuccessStatus,
+            'message' => 'Success',
+            'data' => $dataSPPA,
+        ];
+        return response()->json($response); 
     }
 
     public function create()
@@ -40,7 +48,6 @@ class DataSPPAController extends Controller
             $imageName_foto_ktp_peserta = null;
         }
         
-
         if($request->foto_tanda_tangan){
             $file_foto_tanda_tangan = $request->foto_tanda_tangan;
             $name_foto_tanda_tangan = $file_foto_tanda_tangan->getClientOriginalName();

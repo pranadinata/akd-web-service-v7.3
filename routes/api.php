@@ -4,11 +4,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 //user
-Route::get('/user', 'Api\DataUserController@index');
-Route::post('/user/store', 'Api\DataUserController@store');
+Route::get('/user', 'Api\LoginController@index');
+Route::post('/user/login', 'Api\LoginController@login');
+Route::post('/user/register', 'Api\LoginController@register');
 
 //data claiment
-Route::get('/data-claiment', 'Api\DataClaimentController@index');
+Route::post('/data-claiment', 'Api\DataClaimentController@index');
 Route::post('/data-claiment/store', 'Api\DataClaimentController@store');
 
 //data sppa 

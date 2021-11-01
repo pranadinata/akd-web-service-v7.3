@@ -8,11 +8,11 @@ class User extends Model
 {
     protected $table = 'users';
     protected $fillable = [
-        'nama_depan',
-        'nama_belakang',
+        'nama_lengkap',
         'email',
         'username',
         'password',
+        'group_user',
     ];
 
 }

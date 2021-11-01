@@ -13,9 +13,11 @@ class DataClaimentController extends Controller
 {
     protected $SuccessStatus = 200;
 
-    public function index()
+    public function index(Request $request)
     {
-        $dataClaiment = DataClaiment::all();
+        // dd($request);
+        $dataClaiment = DataClaiment::where('id_user', $request->id_user)->get();
+        // dd($dataClaiment);
         $response = [
             'code' => $this->SuccessStatus,
             'message' => 'Success',
@@ -34,6 +36,8 @@ class DataClaimentController extends Controller
         $dataClaiment = new DataClaiment;
         $dataClaiment->nama_lengkap = $request->nama_lengkap;
         $dataClaiment->alamat = $request->alamat;
+        $dataClaiment->no_tlp = $request->no_tlp;
+        $dataClaiment->id_user = $request->id_user;
         $dataClaiment->save();
 
         $response = [
