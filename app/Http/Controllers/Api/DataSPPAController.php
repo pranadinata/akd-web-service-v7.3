@@ -39,7 +39,7 @@ class DataSPPAController extends Controller
         if($request->foto_ktp_peserta){
             $file_foto = $request->foto_ktp_peserta;
             $extension_foto_ktp_peserta = explode(".", $file_foto);
-            $imageName_foto_ktp_peserta = uniqid().'_foto_ktp_'.'peserta'.'.'.$extension_foto_ktp_peserta[1];
+            $imageName_foto_ktp_peserta = $extension_foto_ktp_peserta[0].'_foto_ktp_'.'peserta'.'.'.$extension_foto_ktp_peserta[1];
             //upload file foto ktp
             // $file_foto->move(public_path(). '/uploads/foto_ktp_sppa/', $imageName_foto_ktp_peserta);
         }else{
@@ -48,8 +48,8 @@ class DataSPPAController extends Controller
 
         if($request->foto_tanda_tangan){
             $file_foto_tanda_tangan = $request->foto_tanda_tangan;
-            $extension_foto_tanda_tangan = explode(".", $file_foto);
-            $imageName_foto_tanda_tangan = uniqid().'_foto_tanda_tangan_'.$request->nama_lengkap.'.'.$extension_foto_tanda_tangan[1];
+            $extension_foto_tanda_tangan = explode(".", $file_foto_tanda_tangan);
+            $imageName_foto_tanda_tangan = $extension_foto_tanda_tangan[0].'_foto_tanda_tangan.'.$extension_foto_tanda_tangan[1];
             //upload file foto tanda
             // $file_foto_tanda_tangan->move(public_path(). '/uploads/foto_tanda_tangan/', $imageName_foto_tanda_tangan);
         }else {
@@ -97,11 +97,13 @@ class DataSPPAController extends Controller
     }
 
     public function storeFile(Request $request){
+        // dd($request);
         if($request->foto_ktp_peserta){
             $file_foto = $request->foto_ktp_peserta;
             $name_foto_ktp_peserta = $file_foto->getClientOriginalName();
             $extension_foto_ktp_peserta = $file_foto->extension();
-            $imageName_foto_ktp_peserta = uniqid().'_foto_ktp_'.'peserta'.'.'.$extension_foto_ktp_peserta;
+            $split = explode(".", $name_foto_ktp_peserta);
+            $imageName_foto_ktp_peserta = $split[0].'_foto_ktp_'.'peserta'.'.'.$extension_foto_ktp_peserta;
             //upload file foto ktp
             $file_foto->move(public_path(). '/uploads/foto_ktp_sppa/', $imageName_foto_ktp_peserta);
         }else{
@@ -110,16 +112,19 @@ class DataSPPAController extends Controller
         $response = [
             'code' => $this->SuccessStatus,
             'message' => 'Success',
+            'data' => $imageName_foto_ktp_peserta,
         ];
         
         return response()->json($response, $response['code']); 
     }
     public function storeFileTandaTangan(Request $request){
+        // dd($request);
         if($request->foto_tanda_tangan){
             $file_foto_tanda_tangan = $request->foto_tanda_tangan;
             $name_foto_tanda_tangan = $file_foto_tanda_tangan->getClientOriginalName();
+            $split = explode(".", $name_foto_tanda_tangan);
             $extension_foto_tanda_tangan = $file_foto_tanda_tangan->extension();
-            $imageName_foto_tanda_tangan = uniqid().'_foto_tanda_tangan_'.$request->nama_lengkap.'.'.$extension_foto_tanda_tangan;
+            $imageName_foto_tanda_tangan = $split[0].'_foto_tanda_tangan.'.$extension_foto_tanda_tangan;
             //upload file foto tanda
             $file_foto_tanda_tangan->move(public_path(). '/uploads/foto_tanda_tangan/', $imageName_foto_tanda_tangan);
         }else {
@@ -128,6 +133,7 @@ class DataSPPAController extends Controller
         $response = [
             'code' => $this->SuccessStatus,
             'message' => 'Success',
+            'data' => $imageName_foto_tanda_tangan,
         ];
         
         return response()->json($response, $response['code']); 
