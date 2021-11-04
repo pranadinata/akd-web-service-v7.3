@@ -8,12 +8,11 @@ class DataSPPA extends Model
 {
     protected $table = 'data_sppa';
     protected $fillable = [
-        'nama_lengkap',
-        'alamat',
+        'id_data_klaiment',
         'peserta_1',
-        'foto_ktp_peserta_1',
         'peserta_2',
-        'foto_ktp_peserta_2',
+        'foto_ktp_peserta',
         'foto_tanda_tangan',
+        'jumlah_premi',
     ];
 }
