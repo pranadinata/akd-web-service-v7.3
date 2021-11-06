@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 //models
 use App\Http\Models\User;
 use App\Http\Models\DataSPPA;
+use App\Http\Models\DataClaiment;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -36,6 +37,7 @@ class DataSPPAController extends Controller
 
     public function store(Request $request)
     {
+
         if($request->foto_ktp_peserta){
             $file_foto = $request->foto_ktp_peserta;
             $extension_foto_ktp_peserta = explode(".", $file_foto);
@@ -87,6 +89,14 @@ class DataSPPAController extends Controller
         $dataSppa->foto_tanda_tangan = $imageName_foto_tanda_tangan;
         $dataSppa->jumlah_premi = $jumlah_premi;
         $dataSppa->save();
+
+        // $dataClaiment = new DataClaiment();
+        $data = DataClaiment::findOrFail($request->id_data_klaiment);
+        $data->status_sppa = 1;
+        $data->save();
+
+        // $dataClaiment->status_sppa = 1;
+        // $dataClaiment->save();
         
         $response = [
             'code' => $this->SuccessStatus,

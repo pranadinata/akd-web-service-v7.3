@@ -38,6 +38,7 @@ class DataClaimentController extends Controller
         $dataClaiment->alamat = $request->alamat;
         $dataClaiment->no_tlp = $request->no_tlp;
         $dataClaiment->id_user = $request->id_user;
+        $dataClaiment->status_sppa = 0;
         $dataClaiment->save();
 
         $response = [
@@ -49,6 +50,16 @@ class DataClaimentController extends Controller
         return response()->json($response, $response['code']); 
     }
 
+    public function sudah_sppa(Request $request){
+        $dataClaiment = DataClaiment::rightJoin('data_sppa','data_claiment.id','data_sppa.id_data_klaiment')->where('data_claiment.id_user', $request->id_user)->first();
+        
+        $response = [
+            'code' => $this->SuccessStatus,
+            'message' => 'Success',
+            'data' => $dataClaiment,
+        ]; 
+        return response()->json($response, $response['code']); 
+    }
     public function show($id)
     {
         //

@@ -14,6 +14,7 @@ class CreateDataClaiment extends Migration
             $table->string('nama_lengkap');
             $table->text('alamat');
             $table->string('no_tlp');
+            $table->integer('status_sppa');
             $table->timestamps();
         });
     }

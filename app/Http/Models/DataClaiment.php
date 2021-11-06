@@ -11,5 +11,6 @@ class DataClaiment extends Model
         'nama_depan',
         'nama_belakang',
         'alamat',
+        'status_sppa',
     ];
 }

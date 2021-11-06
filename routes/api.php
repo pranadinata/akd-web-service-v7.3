@@ -10,6 +10,7 @@ Route::post('/user/register', 'Api\LoginController@register');
 
 //data claiment
 Route::post('/data-claiment', 'Api\DataClaimentController@index');
+Route::post('/data-claiment/sudah_sppa', 'Api\DataClaimentController@sudah_sppa');
 Route::post('/data-claiment/store', 'Api\DataClaimentController@store');
 
 //data sppa 
