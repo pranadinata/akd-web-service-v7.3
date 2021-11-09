@@ -14,5 +14,6 @@ class DataSPPA extends Model
         'foto_ktp_peserta',
         'foto_tanda_tangan',
         'jumlah_premi',
+        'file_document_sppa',
     ];
 }

@@ -6,10 +6,14 @@ use App\Http\Models\User;
 use App\Http\Models\DataSPPA;
 use App\Http\Models\DataClaiment;
 
+use Illuminate\Support\Facades\Storage;     
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use PDF;
+// use PDF;
+// use Barryvdh\DomPDF\PDF;
+use Barryvdh\DomPDF\Facade as PDF;
 //package tambahan
 use App\Http\Controllers\Api\File;
 
@@ -89,13 +93,17 @@ class DataSPPAController extends Controller
         $dataSppa->foto_ktp_peserta = $imageName_foto_ktp_peserta;
         $dataSppa->foto_tanda_tangan = $imageName_foto_tanda_tangan;
         $dataSppa->jumlah_premi = $jumlah_premi;
+        $dataSppa->file_document_sppa = $request->file_document_sppa;
         $dataSppa->save();
 
         // $dataClaiment = new DataClaiment();
         $data = DataClaiment::findOrFail($request->id_data_klaiment);
         $data->status_sppa = 1;
         $data->save();
-
+        $data_buat_pdf = [
+            $peserta_no_1, $peserta_no_2
+        ];
+        $this->print_pdf($data_buat_pdf);
         // $dataClaiment->status_sppa = 1;
         // $dataClaiment->save();
         
@@ -151,18 +159,12 @@ class DataSPPAController extends Controller
     }
     
     //generate pdf 
-    public function print_pdf(){
-        // $show = Disneyplus::find($id);
-        // $dataSPPA = DataSPPA::join('data_claiment','data_claiment.id','=','data_sppa.id_data_klaiment')->where('data_claiment.id_user', $request->id_user)->get();
-        $show = 'coba';
-        $pdf = PDF::loadView('pdf', compact('show'));
-        
-        // return $pdf;
-        return $pdf->download('akd-claiment.pdf');
-        // return $pdf->output();
-        // instantiate and use the dompdf class
-            
+    public function print_pdf($data){
+        $data_pdf = $data;
+        $pdf = PDF::loadView('pdf', ['data_pdf'=>$data_pdf]);
 
+        $content = $pdf->download()->getOriginalContent();
+        Storage::put(('pdf_/akd-claiment1.pdf'), $content);
     }
 
     public function show($id)

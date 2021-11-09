@@ -85,7 +85,7 @@
             </tr>
         </tbody>
     </table>
-    <br><br><br><br><br><br>br
+    <br><br><br><br><br><br><br>
     <p style="text-align: center; font-size: 15px">
         <b>
             SURAT PERMINTAAN PENUTUPAN ASURANSI
@@ -101,22 +101,21 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td style="font-size: 15px"></td>
-                <td style="font-size: 15px"></td>
-                <td style="font-size: 15px"><b>L/P</b></td>
-                <td ></td>
-            </tr>
-            <tr>
-                <td style="font-size: 15px"></td>
-                <td style="font-size: 15px"></td>
-                <td style="font-size: 15px"><b>L/P</b></td>
-                <td ></td>
-            </tr>
+            
+            @foreach ($data_pdf as $item)
+                <tr>
+                    <td style="font-size: 15px"></td>
+                    <td style="font-size: 15px">{{ $item }}</td>
+                    <td style="font-size: 15px"><b>L/P</b></td>
+                    <td ></td>
+                </tr>
+            @endforeach
+            
+            
         </tbody>
     </table>
     <p style="text-align: justify; font-size: 15px">
-        Alamat & No. HP : 
+        Alamat & No. HP :  
     </p>
     <p style="text-align: justify; font-size: 15px">
         Saya paham dan mengerti akan manfaat dari produk asuransi ini, keterangan diatas dibuat
