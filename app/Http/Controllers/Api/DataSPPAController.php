@@ -9,6 +9,7 @@ use App\Http\Models\DataClaiment;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use PDF;
 //package tambahan
 use App\Http\Controllers\Api\File;
 
@@ -149,6 +150,21 @@ class DataSPPAController extends Controller
         return response()->json($response, $response['code']); 
     }
     
+    //generate pdf 
+    public function print_pdf(){
+        // $show = Disneyplus::find($id);
+        // $dataSPPA = DataSPPA::join('data_claiment','data_claiment.id','=','data_sppa.id_data_klaiment')->where('data_claiment.id_user', $request->id_user)->get();
+        $show = 'coba';
+        $pdf = PDF::loadView('pdf', compact('show'));
+        
+        // return $pdf;
+        return $pdf->download('akd-claiment.pdf');
+        // return $pdf->output();
+        // instantiate and use the dompdf class
+            
+
+    }
+
     public function show($id)
     {
         //

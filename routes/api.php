@@ -19,3 +19,5 @@ Route::post('/data-sppa/store', 'Api\DataSPPAController@store');
 Route::post('/data-sppa/store/file', 'Api\DataSPPAController@storeFile');
 Route::post('/data-sppa/store/fileTTD', 'Api\DataSPPAController@storeFileTandaTangan');
 
+//generate pdf
+Route::get('/data-sppa/print_pdf','Api\DataSPPAController@print_pdf');
