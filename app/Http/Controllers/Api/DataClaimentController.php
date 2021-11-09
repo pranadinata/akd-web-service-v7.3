@@ -40,7 +40,7 @@ class DataClaimentController extends Controller
         $dataClaiment->id_user = $request->id_user;
         $dataClaiment->status_sppa = 0;
         $dataClaiment->save();
-
+        
         $response = [
             'code' => $this->SuccessStatus,
             'message' => 'Success',
