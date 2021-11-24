@@ -12,6 +12,8 @@ Route::post('/user/register', 'Api\LoginController@register');
 Route::post('/data-claiment', 'Api\DataClaimentController@index');
 Route::post('/data-claiment/sudah_sppa', 'Api\DataClaimentController@sudah_sppa');
 Route::post('/data-claiment/store', 'Api\DataClaimentController@store');
+Route::post('/data-claiment/update', 'Api\DataClaimentController@update');
+
 
 //data sppa 
 Route::post('/data-sppa', 'Api\DataSPPAController@index');

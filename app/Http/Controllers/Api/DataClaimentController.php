@@ -70,9 +70,20 @@ class DataClaimentController extends Controller
         //
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $dataClaiment = DataClaiment::findOrFail($request->id_dataClaiment);
+        $dataClaiment->nama_lengkap = $request->nama_lengkap;
+        $dataClaiment->alamat = $request->alamat;
+        $dataClaiment->no_tlp = $request->no_tlp;
+        $dataClaiment->save();
+        $response = [
+            'code' => $this->SuccessStatus,
+            'message' => 'Success',
+            // 'data' => $dataClaiment,
+        ]; 
+        return response()->json($response, $response['code']); 
+        // dd($dataClaiment);
     }
 
     public function destroy($id)

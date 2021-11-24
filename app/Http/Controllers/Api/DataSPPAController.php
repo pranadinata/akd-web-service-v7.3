@@ -63,7 +63,6 @@ class DataSPPAController extends Controller
             $imageName_foto_tanda_tangan = null;
         }
         
-        
         if($request->peserta_1 != 'Tidak Ada'){
             $peserta_no_1 = $request->peserta_1;
         }else{
@@ -164,7 +163,9 @@ class DataSPPAController extends Controller
         $pdf = PDF::loadView('pdf', ['data_pdf'=>$data_pdf]);
 
         $content = $pdf->download()->getOriginalContent();
-        Storage::put(('pdf_/akd-claiment1.pdf'), $content);
+
+        $content->move(public_path().'pdf_/akd-claiment2.pdf');
+        // Storage::put(('pdf_/akd-claiment2.pdf'), $content);
     }
 
     public function show($id)
