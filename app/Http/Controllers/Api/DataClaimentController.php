@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 class DataClaimentController extends Controller
 {
     protected $SuccessStatus = 200;
+    protected $ErrorStatus = 400;
 
     public function index(Request $request)
     {
@@ -77,17 +78,35 @@ class DataClaimentController extends Controller
         $dataClaiment->alamat = $request->alamat;
         $dataClaiment->no_tlp = $request->no_tlp;
         $dataClaiment->save();
+
         $response = [
             'code' => $this->SuccessStatus,
             'message' => 'Success',
-            // 'data' => $dataClaiment,
+            'data' => $dataClaiment,
         ]; 
         return response()->json($response, $response['code']); 
         // dd($dataClaiment);
     }
 
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        // dd($request->id_data_claiment);
+        $dataClaiment = DataClaiment::find($request->id_dataClaiment);
+        if($dataClaiment){  
+            $dataClaiment->delete();
+            $response = [
+                'code' => $this->SuccessStatus,
+                'message' => 'Success',
+                // 'data' => $dataClaiment,
+            ]; 
+        }else{
+            $response = [
+                'code' => $this->ErrorStatus,
+                'message' => 'Not Found',
+                // 'data' => $dataClaiment,
+            ]; 
+        }
+        return response()->json($response, $response['code']); 
+        
     }
 }

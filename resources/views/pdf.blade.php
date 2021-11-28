@@ -14,16 +14,17 @@
         <tbody>
             <tr>
                 <td>
-                    <img src="{{ public_path('images/jasa_raharja.jpeg') }}" alt="" width="150" height="100">
+                    <img src="{{ public_path('images/jasa_raharja.jpeg') }}" alt="" style="float:left" width="150" height="100">
                 </td>
                 <td></td>
                 <td></td>
                 <td>
-                    <img src="{{ public_path('images/ahlak.jpeg') }}" alt="" width="150" height="100">
+                    <img src="{{ public_path('images/ahlak.jpeg') }}" alt="" style="float:right" width="150" height="100">
                 </td>
             </tr>
         </tbody>
     </table>
+    <br><br><br><br><br>
     <p style="text-align: center; font-size: 15px">
         <b>
             PROGRAM ASURANSI KECELAKAAN DIRI
@@ -101,13 +102,15 @@
             </tr>
         </thead>
         <tbody>
-            
+            @php
+                $no = 1;
+            @endphp
             @foreach ($data_pdf as $item)
                 <tr>
-                    <td style="font-size: 15px"></td>
-                    <td style="font-size: 15px">{{ $item }}</td>
-                    <td style="font-size: 15px"><b>L/P</b></td>
-                    <td ></td>
+                    <td style="font-size: 15px">{{ $no++ }}</td>
+                    <td style="font-size: 15px">{{ $item[0] }}</td>
+                    <td style="font-size: 15px"><b>{{ $item[1] }}</b></td>
+                    <td >{{ $item[2] }}</td>
                 </tr>
             @endforeach
             
@@ -129,8 +132,10 @@
                 </p>
             </th>
         </tr>
-       <br><br><br><br>
-        <tr>
+    </table>
+    <br><br>
+    <table>
+        <tr style="margin-top: 100px">
             <th>
                 <p style="text-align: justify; font-size: 15px">
                     Nama Lengkap 

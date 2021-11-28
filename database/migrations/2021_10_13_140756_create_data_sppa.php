@@ -13,7 +13,11 @@ class CreateDataSppa extends Migration
             $table->id();
             $table->integer('id_data_klaiment');
             $table->string('peserta_1');
+            $table->string('jenis_kelamin_peserta_1');
+            $table->date('tgl_lahir_peserta_1')->nullable();
             $table->string('peserta_2');
+            $table->string('jenis_kelamin_peserta_2');
+            $table->date('tgl_lahir_peserta_2')->nullable();
             $table->string('foto_ktp_peserta');
             $table->string('foto_tanda_tangan');
             $table->integer('jumlah_premi');

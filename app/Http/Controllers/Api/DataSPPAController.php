@@ -42,7 +42,7 @@ class DataSPPAController extends Controller
 
     public function store(Request $request)
     {
-
+        // dd($request);
         if($request->foto_ktp_peserta){
             $file_foto = $request->foto_ktp_peserta;
             $extension_foto_ktp_peserta = explode(".", $file_foto);
@@ -65,14 +65,22 @@ class DataSPPAController extends Controller
         
         if($request->peserta_1 != 'Tidak Ada'){
             $peserta_no_1 = $request->peserta_1;
+            $jenis_kelamin_no_1 = $request->jenis_kelamin_peserta_1;
+            $tgl_lahir_no_1 = $request->tgl_lahir_peserta_1;
         }else{
             $peserta_no_1 = "";
+            $jenis_kelamin_no_1 = "";
+            $tgl_lahir_no_1 = NULL;
         }
 
         if($request->peserta_2 != 'Tidak Ada'){
             $peserta_no_2 = $request->peserta_2;
+            $jenis_kelamin_no_2 = $request->jenis_kelamin_peserta_2;
+            $tgl_lahir_no_2 = $request->tgl_lahir_peserta_2;
         }else{
             $peserta_no_2 = "";
+            $jenis_kelamin_no_2 = "";
+            $tgl_lahir_no_2 = NULL;
         }
         
         if($peserta_no_1 != '' && $peserta_no_2 != ''){
@@ -85,26 +93,40 @@ class DataSPPAController extends Controller
             }
         }
 
+        $name_of_document = uniqid().'_'.$request->id_data_klaiment.'_Akd_Claiment.pdf';
+
         $dataSppa = new DataSPPA;
         $dataSppa->id_data_klaiment = $request->id_data_klaiment;
         $dataSppa->peserta_1 = $peserta_no_1;
+        $dataSppa->jenis_kelamin_peserta_1 = $jenis_kelamin_no_1;
+        $dataSppa->tgl_lahir_peserta_1 = $tgl_lahir_no_1;
         $dataSppa->peserta_2 = $peserta_no_2;
+        $dataSppa->jenis_kelamin_peserta_2 = $jenis_kelamin_no_2;
+        $dataSppa->tgl_lahir_peserta_2 = $tgl_lahir_no_2;
         $dataSppa->foto_ktp_peserta = $imageName_foto_ktp_peserta;
         $dataSppa->foto_tanda_tangan = $imageName_foto_tanda_tangan;
         $dataSppa->jumlah_premi = $jumlah_premi;
-        $dataSppa->file_document_sppa = $request->file_document_sppa;
+        $dataSppa->file_document_sppa = $name_of_document;
         $dataSppa->save();
 
         // $dataClaiment = new DataClaiment();
         $data = DataClaiment::findOrFail($request->id_data_klaiment);
         $data->status_sppa = 1;
         $data->save();
+
         $data_buat_pdf = [
-            $peserta_no_1, $peserta_no_2
+            [
+                $peserta_no_1,
+                $jenis_kelamin_no_1, 
+                $tgl_lahir_no_1,
+            ],
+            [
+                $peserta_no_2,
+                $jenis_kelamin_no_2, 
+                $tgl_lahir_no_2,
+            ],
         ];
-        $this->print_pdf($data_buat_pdf);
-        // $dataClaiment->status_sppa = 1;
-        // $dataClaiment->save();
+        $this->print_pdf($data_buat_pdf, $name_of_document);
         
         $response = [
             'code' => $this->SuccessStatus,
@@ -158,19 +180,25 @@ class DataSPPAController extends Controller
     }
     
     //generate pdf 
-    public function print_pdf($data){
+    public function print_pdf($data,$name_of_document){
         $data_pdf = $data;
         $pdf = PDF::loadView('pdf', ['data_pdf'=>$data_pdf]);
 
         $content = $pdf->download()->getOriginalContent();
-
-        $content->move(public_path().'pdf_/akd-claiment2.pdf');
-        // Storage::put(('pdf_/akd-claiment2.pdf'), $content);
+        // dd($content);
+        // Storage::put('pdf_/akd-claiment6.pdf', $content);
+        Storage::disk('public_uploads')->put('pdf_/'.$name_of_document, $content);
     }
 
-    public function show($id)
+    public function show(Request $request)
     {
-        //
+        $dataSPPA = DataSPPA::find($request->id_sppa)->first();
+        $response = [
+            'code' => $this->SuccessStatus,
+            'message' => 'Success',
+            'data' => $dataSPPA,
+        ];
+        return response()->json($response, $response['code']);
     }
 
     public function edit($id)
