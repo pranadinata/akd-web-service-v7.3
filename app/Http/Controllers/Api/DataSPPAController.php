@@ -20,7 +20,7 @@ use App\Http\Controllers\Api\File;
 class DataSPPAController extends Controller
 {
     protected $SuccessStatus = 200;
-
+    protected $EmptyStatus = 204;
     public function index(Request $request)
     {
         // dd($request->id_user);
@@ -201,18 +201,25 @@ class DataSPPAController extends Controller
         return response()->json($response, $response['code']);
     }
 
-    public function edit($id)
-    {
-        //
+    public function show_penjualan(Request $request){
+        $penjualan = DataSPPA::where('data_sppa.created_at', '>=', $request->date_awal)->where('data_sppa.created_at', '<=', $request->date_akhir)->join('data_claiment','data_claiment.id','=','data_sppa.id_data_klaiment')->where('data_claiment.id_user', $request->id_user)->get();
+        // dd(count($penjualan));
+        if(count($penjualan) >= 1){
+            $response = [
+                'code' => $this->SuccessStatus,
+                'message' => 'Success',
+                'data' => $penjualan,
+            ];
+        }else{
+            $response = [
+                'code' => $this->EmptyStatus,
+                'message' => 'Empty',
+                'data' => 'Data Tidak ada',
+            ];
+        }
+        return response()->json($response, $response['code']);
+        // dd($penjualan);
+
     }
 
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    public function destroy($id)
-    {
-        //
-    }
 }

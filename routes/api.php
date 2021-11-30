@@ -18,6 +18,7 @@ Route::post('/data-claiment/delete', 'Api\DataClaimentController@destroy');
 //data sppa 
 Route::post('/data-sppa', 'Api\DataSPPAController@index');
 Route::post('/data-sppa/show','Api\DataSPPAController@show');
+Route::post('/data-sppa/show_penjualan','Api\DataSPPAController@show_penjualan');
 Route::post('/data-sppa/store', 'Api\DataSPPAController@store');
 Route::post('/data-sppa/store/file', 'Api\DataSPPAController@storeFile');
 Route::post('/data-sppa/store/fileTTD', 'Api\DataSPPAController@storeFileTandaTangan');
