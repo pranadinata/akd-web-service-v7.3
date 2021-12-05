@@ -23,5 +23,8 @@ Route::post('/data-sppa/store', 'Api\DataSPPAController@store');
 Route::post('/data-sppa/store/file', 'Api\DataSPPAController@storeFile');
 Route::post('/data-sppa/store/fileTTD', 'Api\DataSPPAController@storeFileTandaTangan');
 
+//kebutuhan chart show_chart_jenis_kelamin
+Route::post('/data-sppa/show_chart_jenis_kelamin','Api\DataSPPAController@show_chart_jenis_kelamin');
+
 //generate pdf
 Route::get('/data-sppa/print_pdf','Api\DataSPPAController@print_pdf');

@@ -199,6 +199,7 @@ class DataSPPAController extends Controller
             'data' => $dataSPPA,
         ];
         return response()->json($response, $response['code']);
+            
     }
 
     public function show_penjualan(Request $request){
@@ -219,6 +220,45 @@ class DataSPPAController extends Controller
         }
         return response()->json($response, $response['code']);
         // dd($penjualan);
+
+    }
+    public function show_chart_jenis_kelamin(Request $request){
+        
+        $id_user = $request->id_user;
+        $jenis_kelamin_laki_laki_peserta_1 = DataSPPA::join('data_claiment','data_sppa.id_data_klaiment','=','data_claiment.id')
+                                            ->where('jenis_kelamin_peserta_1','Laki - Laki')
+                                            ->where('data_claiment.id_user',$id_user)
+                                            ->get();
+
+        $jenis_kelamin_laki_laki_peserta_2 = DataSPPA::join('data_claiment','data_sppa.id_data_klaiment','=','data_claiment.id')
+                                            ->where('jenis_kelamin_peserta_2','Laki - Laki')
+                                            ->where('data_claiment.id_user', $id_user)
+                                            ->get();
+
+        $jumlah_laki_laki = count($jenis_kelamin_laki_laki_peserta_1) + count($jenis_kelamin_laki_laki_peserta_2);
+
+        $jenis_kelamin_perempuan_peserta_1 = DataSPPA::join('data_claiment','data_sppa.id_data_klaiment','=','data_claiment.id')
+                                            ->where('jenis_kelamin_peserta_1','Perempuan')
+                                            ->where('data_claiment.id_user', $id_user)
+                                            ->get();
+
+        $jenis_kelamin_perempuan_peserta_2 = DataSPPA::join('data_claiment','data_sppa.id_data_klaiment','=','data_claiment.id')
+                                            ->where('jenis_kelamin_peserta_2','Perempuan')
+                                            ->where('data_claiment.id_user', $id_user)
+                                            ->get();
+
+        $jumlah_perempuan = count($jenis_kelamin_perempuan_peserta_1) + count($jenis_kelamin_perempuan_peserta_2);
+
+        $response = [
+            'code' => $this->SuccessStatus,
+            'message' => 'Success',
+            'data' => [
+                'perempuan' => $jumlah_perempuan, 
+                'laki_laki' => $jumlah_laki_laki
+            ],
+        ];
+        
+        return response()->json($response, $response['code']);
 
     }
 
